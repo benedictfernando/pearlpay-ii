@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from "react";
+import { List } from 'semantic-ui-react';
 
 const ContactsList = () => { 
 
@@ -24,11 +25,18 @@ const ContactsList = () => {
     return (
         <>  
             <h1>Contacts List</h1>
-            <ul>
-                {contacts.map(contact => {
-                    return <li key={contact.id}>{contact.firstname} {contact.lastname}</li>
+            <List size="massive" divided>
+                {contacts.map(contact => { return (
+                    <List.Item>
+                        <List.Content>
+                            <List.Header as="a">
+                                {contact.firstname} {contact.lastname}
+                            </List.Header>
+                        </List.Content>
+                    </List.Item>
+                    )
                 })}
-            </ul>
+            </List>
         </>
     );
 }
