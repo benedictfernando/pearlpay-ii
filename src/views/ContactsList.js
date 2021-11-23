@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { List } from 'semantic-ui-react';
 
 const ContactsList = () => { 
@@ -28,11 +29,13 @@ const ContactsList = () => {
             <List size="massive" divided>
                 {contacts.map(contact => { return (
                     <List.Item>
-                        <List.Content>
-                            <List.Header as="a">
-                                {contact.firstname} {contact.lastname}
-                            </List.Header>
-                        </List.Content>
+                        <Link to={`/contact/${contact.id}`}>
+                            <List.Content>
+                                <List.Header as="a">
+                                    {contact.firstname} {contact.lastname}
+                                </List.Header>
+                            </List.Content>
+                        </Link>
                     </List.Item>
                     )
                 })}
