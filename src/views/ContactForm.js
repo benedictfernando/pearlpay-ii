@@ -101,7 +101,7 @@ const ContactForm = (props) => {
                     <Table.Body>
                         {emailaddresses?.map((item, idx) => {
                             return (
-                                <Table.Row>
+                                <Table.Row key={idx}>
                                     <Table.Cell>
                                         <Button icon type="button">
                                             <Icon name="minus"></Icon>
