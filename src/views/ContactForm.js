@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react";
-import { Form, Button } from 'semantic-ui-react';
+import { Form, Button, Message } from 'semantic-ui-react';
 import { useParams } from 'react-router';
 
 const ContactForm = (props) => {
@@ -10,6 +10,9 @@ const ContactForm = (props) => {
         firstname: '', lastname: '', id: null,
         emailaddresses: [], postaladdresses:[]
     })
+
+    // set states for saving prompt message
+    const [showSaved, setShowSaved] = useState(false);
 
     // get encrypted id from url
     const { id } = useParams();
@@ -43,6 +46,12 @@ const ContactForm = (props) => {
 
         // fetch route with a packet
         await fetch('/contact', packet);
+
+        // set state of showSaved to 'true'
+        setShowSaved(true);
+
+        // set timeout to set state of showSaved to 'false' after some time
+        setTimeout(() => { setShowSaved(false) }, 3000);
     }
 
     // handle events of changing field inputs
@@ -79,6 +88,7 @@ const ContactForm = (props) => {
                     />
                 </Form.Field>
                 <Button>Save</Button>
+                {showSaved ? <Message>Saved</Message> : null}
             </Form>
         </>
     );
