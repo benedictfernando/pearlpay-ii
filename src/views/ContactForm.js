@@ -67,6 +67,36 @@ const ContactForm = (props) => {
         setPerson({ ...person });
     }
 
+    // handle events of changing email address inputs 
+    const handleEmailAddressChange = ({field, idx}) => {
+        
+        // assign values to person's email addresses
+        person.emailaddresses[idx] = field.value;
+
+        // set new state of state bag to new person clone
+        setPerson({ ...person });
+    }
+
+    // execute when email address add button is clicked
+    const addEmailAddressField = () => {
+
+        // push an empty field to the 'emailaddresses' array
+        person.emailaddresses.push('');
+
+        // set new state of state bag to new person clone
+        setPerson({ ...person });
+    }
+
+    // execute when email address remove button is clicked
+    const removeEmailAddressField = (idx) => {
+
+        // put out email address/es from the array
+        person.emailaddresses.splice(idx, 1);
+
+        // set new state of state bag to new person clone
+        setPerson({ ...person });
+    }
+
     // render the following when the this variable is called
     return (
         <>
@@ -91,7 +121,7 @@ const ContactForm = (props) => {
                     <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell>
-                                <Button icon type="button">
+                                <Button icon type="button" onClick={addEmailAddressField}>
                                     <Icon name="plus"></Icon>
                                 </Button>
                                 &nbsp;Email addresses
@@ -103,14 +133,15 @@ const ContactForm = (props) => {
                             return (
                                 <Table.Row key={idx}>
                                     <Table.Cell>
-                                        <Button icon type="button">
+                                        <Button icon type="button"
+                                        onClick={()=>{removeEmailAddressField(idx)}}>
                                             <Icon name="minus"></Icon>
                                         </Button>
                                         <Input 
                                             name="emailaddresses"
                                             placeholder="e.g. test@test.com"
                                             value={item}
-                                            // onChange={'asdasd'}
+                                            onChange={(e, field) => handleEmailAddressChange({field, idx})}
                                         />
                                     </Table.Cell>
                                 </Table.Row>    
