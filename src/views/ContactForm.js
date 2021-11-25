@@ -28,22 +28,54 @@ const ContactForm = (props) => {
         })();
     }, []);
 
+    // create variables from extracted data
+    const { firstname, lastname } = person;
+
+    // run when the form is submitted
+    const saveContact = async () => {
+
+        // packet containing the request
+        const packet = {
+            method: 'POST',
+            headers: {'content-type':'application/json'},
+            body: JSON.stringify(person)
+        }
+
+        // fetch route with a packet
+        await fetch('/contact', packet);
+    }
+
+    // handle events of changing field inputs
+    const handleFieldChange = (field) => {
+
+        // initialize variables extracted from field
+        const { name, value } = field;
+
+        // assign values of object: person's properties 
+        person[name] = value;
+ 
+        // set new state of state bag to new person clone
+        setPerson({ ...person });
+    }
+
     // render the following when the this variable is called
     return (
         <>
-            <Form>
+            <Form onSubmit={saveContact}>
                 <Form.Field>
                     <Form.Input
                         name='firstname'
                         label='First name'
-                        value={person.firstname}
+                        value={firstname}
+                        onChange={(e, field) => handleFieldChange(field)}
                     />
                 </Form.Field>
                 <Form.Field>
                     <Form.Input
                         name='lastname'
                         label='Last name'
-                        value={person.lastname}
+                        value={lastname}
+                        onChange={(e, field) => handleFieldChange(field)}
                     />
                 </Form.Field>
                 <Button>Save</Button>
