@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react";
-import { Form, Button, Message } from 'semantic-ui-react';
+import { Form, Button, Message, Table, Icon, Input } from 'semantic-ui-react';
 import { useParams } from 'react-router';
 
 const ContactForm = (props) => {
@@ -32,7 +32,7 @@ const ContactForm = (props) => {
     }, []);
 
     // create variables from extracted data
-    const { firstname, lastname } = person;
+    const { firstname, lastname, emailaddresses, postaladdresses } = person;
 
     // run when the form is submitted
     const saveContact = async () => {
@@ -87,6 +87,37 @@ const ContactForm = (props) => {
                         onChange={(e, field) => handleFieldChange(field)}
                     />
                 </Form.Field>
+                <Table>
+                    <Table.Header>
+                        <Table.Row>
+                            <Table.HeaderCell>
+                                <Button icon type="button">
+                                    <Icon name="plus"></Icon>
+                                </Button>
+                                &nbsp;Email addresses
+                            </Table.HeaderCell>
+                        </Table.Row>
+                    </Table.Header>
+                    <Table.Body>
+                        {emailaddresses?.map((item, idx) => {
+                            return (
+                                <Table.Row>
+                                    <Table.Cell>
+                                        <Button icon type="button">
+                                            <Icon name="minus"></Icon>
+                                        </Button>
+                                        <Input 
+                                            name="emailaddresses"
+                                            placeholder="e.g. test@test.com"
+                                            value={item}
+                                            // onChange={'asdasd'}
+                                        />
+                                    </Table.Cell>
+                                </Table.Row>    
+                            )
+                        })}
+                    </Table.Body>
+                </Table>
                 <Button>Save</Button>
                 {showSaved ? <Message>Saved</Message> : null}
             </Form>
