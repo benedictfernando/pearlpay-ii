@@ -15,10 +15,10 @@ const ContactsList = () => {
             const response = await fetch('/contacts');
             
             // jsonify received data, then store it into array
-            const { contacts } = await response.json();
+            const results = await response.json();
 
             // set new state of the 'contacts' state variable
-            setContacts(contacts);
+            setContacts(results.contacts);
         })();
     }, []);
 
