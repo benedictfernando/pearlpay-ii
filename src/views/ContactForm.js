@@ -7,21 +7,28 @@ import { Link } from "react-router-dom";
 
 const ContactForm = (props) => {
 
-    // initialize a state variable and a setter function
-    const [person, setPerson] = useState({
+    // create a template for person without information
+    const emptyPerson = {
         firstname: '', lastname: '', id: null,
-        emailaddresses: [], postaladdresses:[]
-    })
+        emailaddresses: [], postaladdresses: []
+    }
+
+    // initialize a state variable and a setter function
+    const [person, setPerson] = useState(emptyPerson);
 
     // set states for saving prompt message
     const [showSaved, setShowSaved] = useState(false);
 
     // get encrypted id from url
-    const { id } = useParams();
+    let { id } = useParams();
 
     // execute when the DOM content has been loaded
     useEffect(() => {
         (async () => {
+
+            // execute when id is not present, then exit immediately after
+            if (!id) { return setPerson(emptyPerson); }
+
             // fetch data from jQuery api
             const response = await fetch('/contact/' + id);
 

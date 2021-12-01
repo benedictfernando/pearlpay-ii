@@ -9,6 +9,9 @@ const PostalAddresses = ({ props }) => {
     // execute when postaladdress table's add button is clicked
     const addPostalAddress = () => {
 
+        // provide an alternate empty array if postal addresses doesn't exist yet
+        person.postaladdresses = person.postaladdresses || [];
+
         // push an empty field to the 'postaladdresses' array
         person.postaladdresses.push({street: '', city: '', zipcode: ''});
 
@@ -18,6 +21,9 @@ const PostalAddresses = ({ props }) => {
 
     // execute when postaladdress table's remove button is clicked
     const removePostalAddress = (idx) => {
+        
+        // provide an alternate empty array if postal addresses doesn't exist yet
+        person.postaladdresses = person.postaladdresses || [];
         
         // put out postal address/es from the array
         person.postaladdresses.splice(idx, 1);

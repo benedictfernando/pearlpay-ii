@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { List } from 'semantic-ui-react';
+import { Button, Icon, List } from 'semantic-ui-react';
 
 const ContactsList = () => { 
 
@@ -26,6 +26,11 @@ const ContactsList = () => {
     return (
         <>  
             <h1>Contacts List</h1>
+            <Link to="/new">
+                <Button icon>
+                    <Icon name="add"></Icon>
+                </Button>
+            </Link>
             <List size="massive" divided>
                 {contacts.map(contact => { return (
                     <List.Item key={contact.id}>
