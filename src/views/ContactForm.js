@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { Form, Button, Message, Table, Icon, Input } from 'semantic-ui-react';
 import { useParams } from 'react-router';
+import PostalAddresses from "./PostalAddresses";
 
 const ContactForm = (props) => {
 
@@ -77,7 +78,7 @@ const ContactForm = (props) => {
         setPerson({ ...person });
     }
 
-    // execute when email address add button is clicked
+    // execute when emailaddress table's add button is clicked
     const addEmailAddressField = () => {
 
         // push an empty field to the 'emailaddresses' array
@@ -87,7 +88,7 @@ const ContactForm = (props) => {
         setPerson({ ...person });
     }
 
-    // execute when email address remove button is clicked
+    // execute when emailaddress table's remove button is clicked
     const removeEmailAddressField = (idx) => {
 
         // put out email address/es from the array
@@ -97,7 +98,7 @@ const ContactForm = (props) => {
         setPerson({ ...person });
     }
 
-    // render the following when the this variable is called
+    // render the following when this variable is called
     return (
         <>
             <Form onSubmit={saveContact}>
@@ -149,6 +150,7 @@ const ContactForm = (props) => {
                         })}
                     </Table.Body>
                 </Table>
+                <PostalAddresses props={{ person, setPerson, postaladdresses }} />
                 <Button>Save</Button>
                 {showSaved ? <Message>Saved</Message> : null}
             </Form>
