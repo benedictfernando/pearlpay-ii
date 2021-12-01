@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Form, Button, Message, Table, Icon, Input } from 'semantic-ui-react';
 import { useParams } from 'react-router';
 import PostalAddresses from "./PostalAddresses";
+import { Link } from "react-router-dom";
 
 const ContactForm = (props) => {
 
@@ -101,6 +102,7 @@ const ContactForm = (props) => {
     // render the following when this variable is called
     return (
         <>
+            <Link to="/"><Button icon><Icon name="home" /></Button></Link>
             <Form onSubmit={saveContact}>
                 <Form.Field>
                     <Form.Input
