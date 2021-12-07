@@ -1,12 +1,13 @@
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Form, Button, Message, Icon } from 'semantic-ui-react';
 import { useParams } from 'react-router';
 import PostalAddresses from "./PostalAddresses";
 import EmailAddresses from "./EmailAddresses";
 import { Link } from "react-router-dom";
+import { PersonContext } from "../providers/personProvider";
 
-const ContactForm = (props) => {
+const ContactForm = () => {
 
     // create a template for person without information
     const emptyPerson = {
@@ -15,7 +16,7 @@ const ContactForm = (props) => {
     }
 
     // initialize a state variable and a setter function
-    const [person, setPerson] = useState(emptyPerson);
+    const { person, setPerson } = useContext(PersonContext);
 
     // set states for saving prompt message
     const [showSaved, setShowSaved] = useState(false);
@@ -42,7 +43,7 @@ const ContactForm = (props) => {
     }, []);
 
     // create variables from extracted data
-    const { firstname, lastname, emailaddresses, postaladdresses } = person;
+    const { firstname, lastname } = person;
 
     // run when the form is submitted
     const saveContact = async () => {
@@ -98,8 +99,8 @@ const ContactForm = (props) => {
                         onChange={(e, field) => handleFieldChange(field)}
                     />
                 </Form.Field>
-                <EmailAddresses props={{ person, setPerson, emailaddresses }} />
-                <PostalAddresses props={{ person, setPerson, postaladdresses }} />
+                <EmailAddresses />
+                <PostalAddresses />
                 <Button>Save</Button>
                 {showSaved ? <Message color="green">Saved</Message> : null}
             </Form>

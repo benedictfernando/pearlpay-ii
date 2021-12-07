@@ -1,10 +1,12 @@
 
+import { useContext } from "react";
 import { Button, Icon, Input, Table } from "semantic-ui-react";
+import { PersonContext } from "../providers/personProvider";
 
-const PostalAddresses = ({ props }) => {
+const PostalAddresses = () => {
 
     // extract state variable, setter function & postal addresses from 'props'
-    const { person, setPerson, postaladdresses } = props;
+    const { person, setPerson } = useContext(PersonContext);
 
     // execute when postaladdress table's add button is clicked
     const addPostalAddress = () => {
@@ -44,7 +46,10 @@ const PostalAddresses = ({ props }) => {
         // set new state of state bag to new person clone
         setPerson({ ...person });
     }
- 
+
+    // extract postal address/es from person object
+    const { postaladdresses } = person;
+
     // render the following when this variable is called
     return (
         <>

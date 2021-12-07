@@ -1,10 +1,12 @@
 
+import { useContext } from 'react';
 import { Button, Table, Icon, Input } from 'semantic-ui-react';
+import { PersonContext } from '../providers/personProvider';
 
-const EmailAddresses = ({ props }) => {
+const EmailAddresses = () => {
 
-    // extract state variable, setter function & postal addresses from 'props'
-    const { person, setPerson, emailaddresses } = props;
+    // extract state variable, setter function & email addresses from 'props'
+    const { person, setPerson } = useContext(PersonContext);
 
     // handle events of changing email address inputs 
     const handleEmailAddressChange = ({field, idx}) => {
@@ -35,6 +37,9 @@ const EmailAddresses = ({ props }) => {
         // set new state of state bag to new person clone
         setPerson({ ...person });
     }
+
+    // extract email address/es from person object
+    const { emailaddresses } = person;
 
     return (
         <>
