@@ -6,6 +6,7 @@ import PostalAddresses from "./PostalAddresses";
 import EmailAddresses from "./EmailAddresses";
 import { Link } from "react-router-dom";
 import { PersonContext } from "../providers/personProvider";
+import TitleLabel from "./TitleLabel";
 
 const ContactForm = () => {
 
@@ -82,6 +83,7 @@ const ContactForm = () => {
     return (
         <>
             <Link to="/"><Button icon><Icon name="home" /></Button></Link>
+            <TitleLabel />
             <Form onSubmit={saveContact}>
                 <Form.Field>
                     <Form.Input
