@@ -101,7 +101,7 @@ const ContactForm = (props) => {
                 <EmailAddresses props={{ person, setPerson, emailaddresses }} />
                 <PostalAddresses props={{ person, setPerson, postaladdresses }} />
                 <Button>Save</Button>
-                {showSaved ? <Message>Saved</Message> : null}
+                {showSaved ? <Message color="green">Saved</Message> : null}
             </Form>
         </>
     );
