@@ -8,11 +8,11 @@ export const PersonContext = createContext();
 export const PersonProvider = (props) => {
 
     // collect the state of the person object
-    const [person, setPerson] = useState({});
+    const [state, dispatch] = useState({});
 
     // return person's context, plus provider that subscribes to changes made to person object
     return (
-        <PersonContext.Provider value={{ person, setPerson }}>
+        <PersonContext.Provider value={{ state, dispatch }}>
             {props.children}
         </PersonContext.Provider>
     );

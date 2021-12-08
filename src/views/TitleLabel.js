@@ -5,10 +5,10 @@ import { PersonContext } from "../providers/personProvider";
 const TitleLabel = () => {
 
     // extract person from context provider
-    const { person } = useContext(PersonContext);
+    const { state } = useContext(PersonContext);
 
     // extract first & last name from person object
-    const { firstname, lastname } = person;
+    const { firstname, lastname } = state;
 
     return (
         <h2>

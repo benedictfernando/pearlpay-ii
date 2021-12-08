@@ -6,40 +6,40 @@ import { PersonContext } from '../providers/personProvider';
 const EmailAddresses = () => {
 
     // extract state variable, setter function & email addresses from 'props'
-    const { person, setPerson } = useContext(PersonContext);
+    const { state, dispatch } = useContext(PersonContext);
 
     // handle events of changing email address inputs 
     const handleEmailAddressChange = ({field, idx}) => {
         
         // assign values to person's email addresses
-        person.emailaddresses[idx] = field.value;
+        state.emailaddresses[idx] = field.value;
 
         // set new state of state bag to new person clone
-        setPerson({ ...person });
+        dispatch({ ...state });
     }
 
     // execute when emailaddress table's add button is clicked
     const addEmailAddressField = () => {
 
         // push an empty field to the 'emailaddresses' array
-        person.emailaddresses.push('');
+        state.emailaddresses.push('');
 
         // set new state of state bag to new person clone
-        setPerson({ ...person });
+        dispatch({ ...state });
     }
 
     // execute when emailaddress table's remove button is clicked
     const removeEmailAddressField = (idx) => {
 
         // put out email address/es from the array
-        person.emailaddresses.splice(idx, 1);
+        state.emailaddresses.splice(idx, 1);
 
         // set new state of state bag to new person clone
-        setPerson({ ...person });
+        dispatch({ ...state });
     }
 
     // extract email address/es from person object
-    const { emailaddresses } = person;
+    const { emailaddresses } = state;
 
     return (
         <>

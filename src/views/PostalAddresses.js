@@ -6,32 +6,32 @@ import { PersonContext } from "../providers/personProvider";
 const PostalAddresses = () => {
 
     // extract state variable, setter function & postal addresses from 'props'
-    const { person, setPerson } = useContext(PersonContext);
+    const { state, dispatch } = useContext(PersonContext);
 
     // execute when postaladdress table's add button is clicked
     const addPostalAddress = () => {
 
         // provide an alternate empty array if postal addresses doesn't exist yet
-        person.postaladdresses = person.postaladdresses || [];
+        state.postaladdresses = state.postaladdresses || [];
 
         // push an empty field to the 'postaladdresses' array
-        person.postaladdresses.push({street: '', city: '', zipcode: ''});
+        state.postaladdresses.push({street: '', city: '', zipcode: ''});
 
         // set new state of state bag to new person clone
-        setPerson({ ...person });
+        dispatch({ ...state });
     }    
 
     // execute when postaladdress table's remove button is clicked
     const removePostalAddress = (idx) => {
         
         // provide an alternate empty array if postal addresses doesn't exist yet
-        person.postaladdresses = person.postaladdresses || [];
+        state.postaladdresses = state.postaladdresses || [];
         
         // put out postal address/es from the array
-        person.postaladdresses.splice(idx, 1);
+        state.postaladdresses.splice(idx, 1);
 
         // set new state of state bag to new person clone
-        setPerson({ ...person });
+        dispatch({ ...state });
     }
 
     // handle events of changing postal address inputs 
@@ -41,14 +41,14 @@ const PostalAddresses = () => {
         const { name, value } = field;
 
         // assign values of object: postal addresses properties 
-        person.postaladdresses[idx][name] = value;
+        state.postaladdresses[idx][name] = value;
 
         // set new state of state bag to new person clone
-        setPerson({ ...person });
+        dispatch({ ...state });
     }
 
     // extract postal address/es from person object
-    const { postaladdresses } = person;
+    const { postaladdresses } = state;
 
     // render the following when this variable is called
     return (

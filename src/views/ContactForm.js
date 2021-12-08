@@ -17,7 +17,7 @@ const ContactForm = () => {
     }
 
     // initialize a state variable and a setter function
-    const { person, setPerson } = useContext(PersonContext);
+    const { state, dispatch } = useContext(PersonContext);
 
     // set states for saving prompt message
     const [showSaved, setShowSaved] = useState(false);
@@ -30,7 +30,7 @@ const ContactForm = () => {
         (async () => {
 
             // execute when id is not present, then exit immediately after
-            if (!id) { return setPerson(emptyPerson); }
+            if (!id) { return dispatch(emptyPerson); }
 
             // fetch data from jQuery api
             const response = await fetch('/contact/' + id);
@@ -39,12 +39,12 @@ const ContactForm = () => {
             const results = await response.json();
 
             // set new state of the 'person' state variable
-            setPerson(results);
+            dispatch(results);
         })();
     }, []);
 
     // create variables from extracted data
-    const { firstname, lastname } = person;
+    const { firstname, lastname } = state;
 
     // run when the form is submitted
     const saveContact = async () => {
@@ -53,7 +53,7 @@ const ContactForm = () => {
         const packet = {
             method: 'POST',
             headers: {'content-type':'application/json'},
-            body: JSON.stringify(person)
+            body: JSON.stringify(state)
         }
 
         // fetch route with a packet
@@ -73,10 +73,10 @@ const ContactForm = () => {
         const { name, value } = field;
 
         // assign values of object: person's properties 
-        person[name] = value;
+        state[name] = value;
  
         // set new state of state bag to new person clone
-        setPerson({ ...person });
+        dispatch({ ...state });
     }
 
     // render the following when this variable is called
