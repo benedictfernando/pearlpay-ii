@@ -10,12 +10,6 @@ import TitleLabel from "./TitleLabel";
 
 const ContactForm = () => {
 
-    // create a template for person without information
-    const emptyPerson = {
-        firstname: '', lastname: '', id: null,
-        emailaddresses: [], postaladdresses: []
-    }
-
     // initialize a state variable and a setter function
     const { state, dispatch } = useContext(PersonContext);
 
@@ -30,16 +24,16 @@ const ContactForm = () => {
         (async () => {
 
             // execute when id is not present, then exit immediately after
-            if (!id) { return dispatch(emptyPerson); }
+            if (!id) { return dispatch({ type: 'empty' }); }
 
             // fetch data from jQuery api
             const response = await fetch('/contact/' + id);
 
             // jsonify received data, then store it into array
-            const results = await response.json();
+            const payload = await response.json();
 
             // set new state of the 'person' state variable
-            dispatch(results);
+            dispatch({ type: 'load', payload });
         })();
     }, []);
 
@@ -66,19 +60,6 @@ const ContactForm = () => {
         setTimeout(() => { setShowSaved(false) }, 3000);
     }
 
-    // handle events of changing field inputs
-    const handleFieldChange = (field) => {
-
-        // initialize variables extracted from field
-        const { name, value } = field;
-
-        // assign values of object: person's properties 
-        state[name] = value;
-
-        // set new state of state bag to new person clone
-        dispatch({ ...state });
-    }
-
     // render the following when this variable is called
     return (
         <>
@@ -90,7 +71,7 @@ const ContactForm = () => {
                         name='firstname'
                         label='First name'
                         value={firstname}
-                        onChange={(e, field) => handleFieldChange(field)}
+                        onChange={(e, payload) => dispatch({ type: 'handleFieldChange', payload })}
                     />
                 </Form.Field>
                 <Form.Field>
@@ -98,7 +79,7 @@ const ContactForm = () => {
                         name='lastname'
                         label='Last name'
                         value={lastname}
-                        onChange={(e, field) => handleFieldChange(field)}
+                        onChange={(e, payload) => dispatch({ type: 'handleFieldChange', payload })}
                     />
                 </Form.Field>
                 <EmailAddresses />

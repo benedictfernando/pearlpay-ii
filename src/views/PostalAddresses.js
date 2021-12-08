@@ -8,45 +8,6 @@ const PostalAddresses = () => {
     // extract state variable, setter function & postal addresses from 'props'
     const { state, dispatch } = useContext(PersonContext);
 
-    // execute when postaladdress table's add button is clicked
-    const addPostalAddress = () => {
-
-        // provide an alternate empty array if postal addresses doesn't exist yet
-        state.postaladdresses = state.postaladdresses || [];
-
-        // push an empty field to the 'postaladdresses' array
-        state.postaladdresses.push({ street: '', city: '', zipcode: '' });
-
-        // set new state of state bag to new person clone
-        dispatch({ ...state });
-    }
-
-    // execute when postaladdress table's remove button is clicked
-    const removePostalAddress = (idx) => {
-
-        // provide an alternate empty array if postal addresses doesn't exist yet
-        state.postaladdresses = state.postaladdresses || [];
-
-        // put out postal address/es from the array
-        state.postaladdresses.splice(idx, 1);
-
-        // set new state of state bag to new person clone
-        dispatch({ ...state });
-    }
-
-    // handle events of changing postal address inputs 
-    const handlePostalAddressChange = (field, idx) => {
-
-        // initialize variables extracted from field
-        const { name, value } = field;
-
-        // assign values of object: postal addresses properties 
-        state.postaladdresses[idx][name] = value;
-
-        // set new state of state bag to new person clone
-        dispatch({ ...state });
-    }
-
     // extract postal address/es from person object
     const { postaladdresses } = state;
 
@@ -57,7 +18,8 @@ const PostalAddresses = () => {
                 <Table.Header>
                     <Table.Row>
                         <Table.HeaderCell>
-                            <Button icon type="button" onClick={addPostalAddress}>
+                            <Button icon type="button" onClick={() =>
+                                dispatch({ type: 'addPostalAddress' })}>
                                 <Icon name="plus"></Icon>
                             </Button>
                         </Table.HeaderCell>
@@ -71,7 +33,9 @@ const PostalAddresses = () => {
                         return (
                             <Table.Row>
                                 <Table.Cell>
-                                    <Button icon type="button" onClick={() => { removePostalAddress(idx) }}>
+                                    <Button icon type="button" onClick={() => dispatch({
+                                        type: 'removePostalAddress', payload: { idx }
+                                    })}>
                                         <Icon name="minus"></Icon>
                                     </Button>
                                 </Table.Cell>
@@ -80,7 +44,9 @@ const PostalAddresses = () => {
                                         name="street"
                                         placeholder="e.g. Gutierrez"
                                         value={pa.street}
-                                        onChange={(e, field) => handlePostalAddressChange(field, idx)}
+                                        onChange={(e, field) => dispatch({
+                                            type: 'handlePostalAddressChange', payload: { field, idx }
+                                        })}
                                     />
                                 </Table.Cell>
                                 <Table.Cell>
@@ -88,7 +54,9 @@ const PostalAddresses = () => {
                                         name="city"
                                         placeholder="e.g. Taguig"
                                         value={pa.city}
-                                        onChange={(e, field) => handlePostalAddressChange(field, idx)}
+                                        onChange={(e, field) => dispatch({
+                                            type: 'handlePostalAddressChange', payload: { field, idx }
+                                        })}
                                     />
                                 </Table.Cell>
                                 <Table.Cell>
@@ -96,7 +64,9 @@ const PostalAddresses = () => {
                                         name="zipcode"
                                         placeholder="e.g. 999"
                                         value={pa.zipcode}
-                                        onChange={(e, field) => handlePostalAddressChange(field, idx)}
+                                        onChange={(e, field) => dispatch({
+                                            type: 'handlePostalAddressChange', payload: { field, idx }
+                                        })}
                                     />
                                 </Table.Cell>
                             </Table.Row>

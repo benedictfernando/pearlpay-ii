@@ -8,36 +8,6 @@ const EmailAddresses = () => {
     // extract state variable, setter function & email addresses from 'props'
     const { state, dispatch } = useContext(PersonContext);
 
-    // handle events of changing email address inputs 
-    const handleEmailAddressChange = ({ field, idx }) => {
-
-        // assign values to person's email addresses
-        state.emailaddresses[idx] = field.value;
-
-        // set new state of state bag to new person clone
-        dispatch({ ...state });
-    }
-
-    // execute when emailaddress table's add button is clicked
-    const addEmailAddressField = () => {
-
-        // push an empty field to the 'emailaddresses' array
-        state.emailaddresses.push('');
-
-        // set new state of state bag to new person clone
-        dispatch({ ...state });
-    }
-
-    // execute when emailaddress table's remove button is clicked
-    const removeEmailAddressField = (idx) => {
-
-        // put out email address/es from the array
-        state.emailaddresses.splice(idx, 1);
-
-        // set new state of state bag to new person clone
-        dispatch({ ...state });
-    }
-
     // extract email address/es from person object
     const { emailaddresses } = state;
 
@@ -47,7 +17,7 @@ const EmailAddresses = () => {
                 <Table.Header>
                     <Table.Row>
                         <Table.HeaderCell>
-                            <Button icon type="button" onClick={addEmailAddressField}>
+                            <Button icon type="button" onClick={() => dispatch({ type: 'addEmailAddressField' })}>
                                 <Icon name="plus"></Icon>
                             </Button>
                             &nbsp;Email addresses
@@ -60,14 +30,16 @@ const EmailAddresses = () => {
                             <Table.Row key={idx}>
                                 <Table.Cell>
                                     <Button icon type="button"
-                                        onClick={() => { removeEmailAddressField(idx) }}>
+                                        onClick={() => dispatch({ type: 'removeEmailAddressField', payload: { idx } })}>
                                         <Icon name="minus"></Icon>
                                     </Button>
                                     <Input
                                         name="emailaddresses"
                                         placeholder="e.g. test@test.com"
                                         value={item}
-                                        onChange={(e, field) => handleEmailAddressChange({ field, idx })}
+                                        onChange={(e, field) => dispatch({
+                                            type: 'handleEmailAddressChange', payload: { field, idx }
+                                        })}
                                     />
                                 </Table.Cell>
                             </Table.Row>
