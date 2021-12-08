@@ -1,12 +1,13 @@
 
 import { useContext } from 'react';
 import { Button, Table, Icon, Input } from 'semantic-ui-react';
-import { PersonContext } from '../providers/personProvider';
+import { PersonStateContext, PersonDispatchContext } from '../providers/personProvider';
 
 const EmailAddresses = () => {
 
-    // extract state variable, setter function & email addresses from 'props'
-    const { state, dispatch } = useContext(PersonContext);
+    // initialize state and dispatch person's context
+    const state = useContext(PersonStateContext);
+    const dispatch = useContext(PersonDispatchContext);
 
     // extract email address/es from person object
     const { emailaddresses } = state;

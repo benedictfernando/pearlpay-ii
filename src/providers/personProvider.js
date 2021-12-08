@@ -1,8 +1,9 @@
 
 const { createContext, useReducer } = require("react");
 
-// create context for our person object
-export const PersonContext = createContext();
+// create a separate person context for state & dispatch
+export const PersonStateContext = createContext();
+export const PersonDispatchContext = createContext();
 
 // initialize an empty person object
 const emptyPerson = {
@@ -74,8 +75,10 @@ export const PersonProvider = (props) => {
 
     // return person's context, plus provider that subscribes to changes made to person object
     return (
-        <PersonContext.Provider value={{ state, dispatch }}>
-            {props.children}
-        </PersonContext.Provider>
+        <PersonStateContext.Provider value={state}>
+            <PersonDispatchContext.Provider value={dispatch}>
+                {props.children}
+            </PersonDispatchContext.Provider>
+        </PersonStateContext.Provider>
     );
 }

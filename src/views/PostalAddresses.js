@@ -1,12 +1,13 @@
 
 import { useContext } from "react";
 import { Button, Icon, Input, Table } from "semantic-ui-react";
-import { PersonContext } from "../providers/personProvider";
+import { PersonStateContext, PersonDispatchContext } from "../providers/personProvider";
 
 const PostalAddresses = () => {
 
-    // extract state variable, setter function & postal addresses from 'props'
-    const { state, dispatch } = useContext(PersonContext);
+    // initialize state and dispatch person's context
+    const state = useContext(PersonStateContext);
+    const dispatch = useContext(PersonDispatchContext);
 
     // extract postal address/es from person object
     const { postaladdresses } = state;

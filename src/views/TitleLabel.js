@@ -1,11 +1,11 @@
 
 import { useContext } from "react";
-import { PersonContext } from "../providers/personProvider";
+import { PersonStateContext } from "../providers/personProvider";
 
 const TitleLabel = () => {
 
     // extract person from context provider
-    const { state } = useContext(PersonContext);
+    const state = useContext(PersonStateContext);
 
     // extract first & last name from person object
     const { firstname, lastname } = state;

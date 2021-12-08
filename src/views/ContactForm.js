@@ -5,13 +5,14 @@ import { useParams } from 'react-router';
 import PostalAddresses from "./PostalAddresses";
 import EmailAddresses from "./EmailAddresses";
 import { Link } from "react-router-dom";
-import { PersonContext } from "../providers/personProvider";
+import { PersonStateContext, PersonDispatchContext } from "../providers/personProvider";
 import TitleLabel from "./TitleLabel";
 
 const ContactForm = () => {
 
-    // initialize a state variable and a setter function
-    const { state, dispatch } = useContext(PersonContext);
+    // initialize state and dispatch person's context
+    const personState = useContext(PersonStateContext);
+    const personDispatch = useContext(PersonDispatchContext);
 
     // set states for saving prompt message
     const [showSaved, setShowSaved] = useState(false);
@@ -24,7 +25,7 @@ const ContactForm = () => {
         (async () => {
 
             // execute when id is not present, then exit immediately after
-            if (!id) { return dispatch({ type: 'empty' }); }
+            if (!id) { return personDispatch({ type: 'empty' }); }
 
             // fetch data from jQuery api
             const response = await fetch('/contact/' + id);
@@ -33,12 +34,12 @@ const ContactForm = () => {
             const payload = await response.json();
 
             // set new state of the 'person' state variable
-            dispatch({ type: 'load', payload });
+            personDispatch({ type: 'load', payload });
         })();
     }, []);
 
     // create variables from extracted data
-    const { firstname, lastname } = state;
+    const { firstname, lastname } = personState;
 
     // run when the form is submitted
     const saveContact = async () => {
@@ -47,7 +48,7 @@ const ContactForm = () => {
         const packet = {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
-            body: JSON.stringify(state)
+            body: JSON.stringify(personState)
         }
 
         // fetch route with a packet
@@ -71,7 +72,7 @@ const ContactForm = () => {
                         name='firstname'
                         label='First name'
                         value={firstname}
-                        onChange={(e, payload) => dispatch({ type: 'handleFieldChange', payload })}
+                        onChange={(e, payload) => personDispatch({ type: 'handleFieldChange', payload })}
                     />
                 </Form.Field>
                 <Form.Field>
@@ -79,7 +80,7 @@ const ContactForm = () => {
                         name='lastname'
                         label='Last name'
                         value={lastname}
-                        onChange={(e, payload) => dispatch({ type: 'handleFieldChange', payload })}
+                        onChange={(e, payload) => personDispatch({ type: 'handleFieldChange', payload })}
                     />
                 </Form.Field>
                 <EmailAddresses />
