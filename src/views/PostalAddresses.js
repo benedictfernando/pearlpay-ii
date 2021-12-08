@@ -15,18 +15,18 @@ const PostalAddresses = () => {
         state.postaladdresses = state.postaladdresses || [];
 
         // push an empty field to the 'postaladdresses' array
-        state.postaladdresses.push({street: '', city: '', zipcode: ''});
+        state.postaladdresses.push({ street: '', city: '', zipcode: '' });
 
         // set new state of state bag to new person clone
         dispatch({ ...state });
-    }    
+    }
 
     // execute when postaladdress table's remove button is clicked
     const removePostalAddress = (idx) => {
-        
+
         // provide an alternate empty array if postal addresses doesn't exist yet
         state.postaladdresses = state.postaladdresses || [];
-        
+
         // put out postal address/es from the array
         state.postaladdresses.splice(idx, 1);
 
@@ -36,7 +36,7 @@ const PostalAddresses = () => {
 
     // handle events of changing postal address inputs 
     const handlePostalAddressChange = (field, idx) => {
-        
+
         // initialize variables extracted from field
         const { name, value } = field;
 
@@ -71,32 +71,32 @@ const PostalAddresses = () => {
                         return (
                             <Table.Row>
                                 <Table.Cell>
-                                    <Button icon type="button" onClick={()=>{removePostalAddress(idx)}}>
+                                    <Button icon type="button" onClick={() => { removePostalAddress(idx) }}>
                                         <Icon name="minus"></Icon>
                                     </Button>
                                 </Table.Cell>
                                 <Table.Cell>
-                                    <Input 
+                                    <Input
                                         name="street"
                                         placeholder="e.g. Gutierrez"
                                         value={pa.street}
-                                        onChange={(e, field)=>handlePostalAddressChange(field, idx)}
+                                        onChange={(e, field) => handlePostalAddressChange(field, idx)}
                                     />
                                 </Table.Cell>
                                 <Table.Cell>
-                                    <Input 
+                                    <Input
                                         name="city"
                                         placeholder="e.g. Taguig"
                                         value={pa.city}
-                                        onChange={(e, field)=>handlePostalAddressChange(field, idx)}
+                                        onChange={(e, field) => handlePostalAddressChange(field, idx)}
                                     />
                                 </Table.Cell>
                                 <Table.Cell>
-                                    <Input 
+                                    <Input
                                         name="zipcode"
                                         placeholder="e.g. 999"
                                         value={pa.zipcode}
-                                        onChange={(e, field)=>handlePostalAddressChange(field, idx)}
+                                        onChange={(e, field) => handlePostalAddressChange(field, idx)}
                                     />
                                 </Table.Cell>
                             </Table.Row>

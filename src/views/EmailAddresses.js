@@ -9,8 +9,8 @@ const EmailAddresses = () => {
     const { state, dispatch } = useContext(PersonContext);
 
     // handle events of changing email address inputs 
-    const handleEmailAddressChange = ({field, idx}) => {
-        
+    const handleEmailAddressChange = ({ field, idx }) => {
+
         // assign values to person's email addresses
         state.emailaddresses[idx] = field.value;
 
@@ -60,17 +60,17 @@ const EmailAddresses = () => {
                             <Table.Row key={idx}>
                                 <Table.Cell>
                                     <Button icon type="button"
-                                    onClick={()=>{removeEmailAddressField(idx)}}>
+                                        onClick={() => { removeEmailAddressField(idx) }}>
                                         <Icon name="minus"></Icon>
                                     </Button>
-                                    <Input 
+                                    <Input
                                         name="emailaddresses"
                                         placeholder="e.g. test@test.com"
                                         value={item}
-                                        onChange={(e, field) => handleEmailAddressChange({field, idx})}
+                                        onChange={(e, field) => handleEmailAddressChange({ field, idx })}
                                     />
                                 </Table.Cell>
-                            </Table.Row>    
+                            </Table.Row>
                         )
                     })}
                 </Table.Body>

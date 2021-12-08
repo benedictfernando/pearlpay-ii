@@ -52,7 +52,7 @@ const ContactForm = () => {
         // packet containing the request
         const packet = {
             method: 'POST',
-            headers: {'content-type':'application/json'},
+            headers: { 'content-type': 'application/json' },
             body: JSON.stringify(state)
         }
 
@@ -74,7 +74,7 @@ const ContactForm = () => {
 
         // assign values of object: person's properties 
         state[name] = value;
- 
+
         // set new state of state bag to new person clone
         dispatch({ ...state });
     }
